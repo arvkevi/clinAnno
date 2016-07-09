@@ -4,14 +4,12 @@
 1. A variant is annotated with `PS1` when it has the same amino acid change as an established pathogenic variant, regardless of nucleotide change.   
 2. A variant is annotated `PM5` when "a novel missense amino acid change occurs at the same position as another pathogenic missense change (e.g., Trp38Ser and Trp38Leu)".
 
-The [ClinVar](http://www.ncbi.nlm.nih.gov/clinvar/) database is used to identify *previously established **pathogenic*** variants. 
+The [ClinVar](http://www.ncbi.nlm.nih.gov/clinvar/) database is used to identify *previously established, pathogenic* variants. 
 
 ## Installation
 Install using github:
 ```sh
 git clone https://github.com/arvkevi/clinAnno.git
-cd clinAnno
-python setup.py install
 ```
 
 ## Requirements
@@ -63,6 +61,9 @@ clinAnno$ grep -v '^##' clinvar.chr1.anno.clinAnno.vcf | head -3
 |--------|--------|-------------|-----|-----|------|--------|--------------------------------------------------------|
 | 1      | 949523 | rs786201005 | C   | T   | .    | .      | PS1=183381|RS=786201005;RSPOS=949523;dbSNPBuildID=144; |
 | 1      | 949696 | rs672601345 | C   | CG  | .    | .      | RS=672601345;RSPOS=949699;dbSNPBuildID=142;            |
+
+^^^Still working on the markdown syntax for the table^^^
+The first variant should show additional information after the `PS1` annotation.
 
 Notice the second variant was not annotated with either `PS1=` or `PM5=`.  *The INFO field has been truncated*
 
