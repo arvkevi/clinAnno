@@ -1,3 +1,4 @@
+0. Investigate 1	11860307	rs574132670	C	T	.	.	PS1=187876|
 1. Add HGMD as additional source for established pathogenic variants.
 2. Include "clinAnno" header line in annotated .vcf
 3. Handle indels and copy-number variants

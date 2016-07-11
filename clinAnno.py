@@ -35,7 +35,7 @@ def process_variant(cvObj, record):
         return '\t'.join(record) + "\n"
     else:
         # if not None, output is a string:
-        # 'PM5=5678|PS1=1234;5678' 
+        # 'PM5=5678;PS1=1234;5678' 
         return pm5_ps1_anno
     
 def pm5_ps1(record, cvObj):
@@ -129,9 +129,9 @@ def pm5_ps1(record, cvObj):
         return
     
     # translate the dictionary to a string
-    pm5_ps1_str = '|'.join(["%s=" % (k) +
+    pm5_ps1_str = ';'.join(["%s=" % (k) +
                             ';'.join(str(e) for e in v)
-                            for k,v in annoPath.items()]) + '|'
+                            for k,v in annoPath.items()]) + ';'
     
     #prepend the annotation in the INFO column of the record
     record[7] = pm5_ps1_str + record[7]
