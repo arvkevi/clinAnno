@@ -55,6 +55,9 @@ again, until clinVar releases a new update, or whenever you'd like.
 ### clinAnno.py -- .vcf annotations
 The file, `clinVar_obj.p` should be in your repo.  
 Now, annotate a .vcf:  
+After executing `clinVar_parser.py`, the file `clinVar_obj.p` should be in your repo.
+
+Now, annotate a .vcf:
 The example, `clinvar.chr1.anno.vcf`, contains chromosome 1 variants from [clinVar's .vcf](ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/).
 
 ```sh
@@ -86,6 +89,7 @@ clinAnno$ grep -v '^##' clinvar.chr1.anno.clinAnno.vcf | head -3
 *The INFO field has been truncated*  
 Notice the second variant was not annotated with either `PS1=` or `PM5=`, indicating that the variant did not meet the criteria.  
 
+Notice the second variant was not annotated with either `PS1=` or `PM5=`, indicating that the variant did not meet the criteria.  *The INFO field has been truncated*
 
 The integer after `PS1=` is clinVar's unique variation identifier, this directs you to the variant landing page in clinVar:  
 <http://www.ncbi.nlm.nih.gov/clinvar/variation/183381/>
