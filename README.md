@@ -89,8 +89,6 @@ clinAnno$ grep -v '^##' clinvar.chr1.anno.clinAnno.vcf | head -3
 *The INFO field has been truncated*  
 Notice the second variant was not annotated with either `PS1=` or `PM5=`, indicating that the variant did not meet the criteria.  
 
-Notice the second variant was not annotated with either `PS1=` or `PM5=`, indicating that the variant did not meet the criteria.  *The INFO field has been truncated*
-
 The integer after `PS1=` is clinVar's unique variation identifier, this directs you to the variant landing page in clinVar:  
 <http://www.ncbi.nlm.nih.gov/clinvar/variation/183381/>
 
