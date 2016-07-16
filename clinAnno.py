@@ -21,22 +21,37 @@ try:
 except ImportError:
     import cPickle
 
-def process_variant(cvObj, record):
+def process_variant(cvObj, record, flag): # flag is a hacky method to insert meta-info at the top of the header.
     """
     Function to handle one record of the .vcf
     Addtional functionality could be built here.
     """ 
     if record.startswith('#'):
-        return record
+        #Insert a meta-information line in the header
+        if record.startswith('##INFO') and flag:
+            record = ('##INFO=<ID=PS1,Number=.,Type=Integer,'
+                      'Description="Variant as the same amino acid change'
+                      'as an established pathogenic variant, regardless of'
+                      'nucleotide change",Source="clinAnno",Version="0.0.0">\n'
+                      '##INFO=<ID=PM5,Number=.,Type=Integer,'
+                      'Description="Variant is a novel missense amino acid'
+                      'change that has occurred at the same position as'
+                      'another established pathogenic missense change"'
+                      ',Source="clinAnno",Version="0.0.0">\n'
+                      '%s') % record
+            flag = False
+            return record, flag
+        else:
+            return record, flag
     
     record = record.rstrip().split('\t')
     pm5_ps1_anno = pm5_ps1(record, cvObj) 
     if pm5_ps1_anno is None: # No annotations, write original vcf record
-        return '\t'.join(record) + "\n"
+        return '\t'.join(record) + "\n", flag
     else:
         # if not None, output is a string:
         # 'PM5=5678;PS1=1234;5678' 
-        return pm5_ps1_anno
+        return pm5_ps1_anno, flag
     
 def pm5_ps1(record, cvObj):
     """  
@@ -129,8 +144,9 @@ def pm5_ps1(record, cvObj):
         return
     
     # translate the dictionary to a string
+    # ex. PS1=1234,9876;PM5=3333;
     pm5_ps1_str = ';'.join(["%s=" % (k) +
-                            ';'.join(str(e) for e in v)
+                            ','.join(str(e) for e in v)
                             for k,v in annoPath.items()]) + ';'
     
     #prepend the annotation in the INFO column of the record
@@ -155,20 +171,22 @@ if __name__ == '__main__':
         clinVar_obj = pickle.load(clinvar_pkl)
         clinvar_pkl.close()
     except IOError as e:
-        print "Run clinAnno_parser.py and make sure the .p file is in cwd"
+        print "Run clinVar_parser.py and make sure the .p file is in cwd"
         print e
     
     
     if f.endswith(".gz"):
         with gzip.open(f, 'rb') as v:
             with open (out, "w") as annoVCF:
+                flag = True
                 for line in v:
-                    anno_record = process_variant(clinVar_obj, line)
+                    anno_record, flag = process_variant(clinVar_obj, line, flag)
                     annoVCF.write(anno_record)
     else:
         with open(f, 'rb') as v:
             with open (out, "w") as annoVCF:
+                flag = True
                 for line in v:
-                    anno_record = process_variant(clinVar_obj, line)
+                    anno_record, flag = process_variant(clinVar_obj, line, flag)
                     annoVCF.write(anno_record)
 

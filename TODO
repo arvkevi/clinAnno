@@ -2,3 +2,4 @@
 1. Add HGMD as additional source for established pathogenic variants.
 2. Include "clinAnno" header line in annotated .vcf
 3. Handle indels and copy-number variants
+4. Double-check that ALL PM5s are missense

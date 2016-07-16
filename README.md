@@ -57,7 +57,7 @@ The file, `clinVar_obj.p` should be in your repo.
 Now, annotate a .vcf:  
 After executing `clinVar_parser.py`, the file `clinVar_obj.p` should be in your repo.
 
-Now, annotate a .vcf:
+Now, annotate any .vcf (with HGVS amino acid change annotation):
 The example, `clinvar.chr1.anno.vcf`, contains chromosome 1 variants from [clinVar's .vcf](ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/).
 
 ```sh
